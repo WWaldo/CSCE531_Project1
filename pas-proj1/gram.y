@@ -169,23 +169,29 @@ optional_par_id_list:
   | '(' id_list ')'  {}
   ;
 
+/* ACTION REQUIRED */
 id_list:
     new_identifier  {}
   | id_list ',' new_identifier  {}
   ;
 
+/* ACTION REQUIRED */
 typename:
     LEX_ID  {}
   ;
 
+/* ACTION REQUIRED */
 identifier:
     LEX_ID  {}
   ;
 
+/* ACTION REQUIRED */
 new_identifier:
     new_identifier_1  {}
   ;
 
+/* ACTION REQUIRED */
+/* LEX_ID production only */
 new_identifier_1:
 LEX_ID  {}
 /* Standard Pascal constants */
@@ -264,6 +270,7 @@ any_decl:
   | function_declaration  {}
   ;
 
+/* ACTION REQUIRED */
 simple_decl:
     label_declaration_part  {}
   | constant_definition_part  {}
@@ -303,6 +310,8 @@ constant_definition:
     new_identifier '=' static_expression semi  {}
   ;
 
+/* ACTION REQUIRED */
+/* Number portion only */
 constant:
     identifier  {}
   | sign identifier  {}
@@ -315,11 +324,13 @@ number:
   | unsigned_number  {}
   ;
 
+/* ACTION REQUIRED */
 unsigned_number:
     LEX_INTCONST  {}
   | LEX_REALCONST  {}
   ;
 
+/* ACTION REQUIRED */
 sign:
     '+'  {}
   | '-'  {}
@@ -345,6 +356,7 @@ string:
   | string LEX_STRCONST  {}
   ;
 
+/* ACTION REQUIRED */
 type_definition_part:
     LEX_TYPE type_definition_list semi  {}
   ;
@@ -354,15 +366,18 @@ type_definition_list:
   | type_definition_list semi type_definition  {}
   ;
 
+/* ACTION REQUIRED */
 type_definition:
     new_identifier '=' type_denoter  {}
   ;
 
+/* ACTION REQUIRED */
 type_denoter:
     typename  {}
   | type_denoter_1  {}
   ;
 
+/* ACTION REQUIRED */
 type_denoter_1:
     new_ordinal_type  {}
   | new_pointer_type  {}
@@ -370,6 +385,7 @@ type_denoter_1:
   | new_structured_type  {}
   ;
 
+/* ACTION REQUIRED */
 new_ordinal_type:
     enumerated_type  {}
   | subrange_type  {}
@@ -388,10 +404,12 @@ enumerator:
     new_identifier  {}
   ;
 
+/* ACTION REQUIRED */
 subrange_type:
     constant LEX_RANGE constant  {}
   ;
 
+/* ACTION REQUIRED */
 new_pointer_type:
     pointer_char pointer_domain_type  {}
   ;
@@ -401,26 +419,31 @@ pointer_char:
   | '@'  {}
   ;
 
+/* ACTION REQUIRED */
 pointer_domain_type:
     new_identifier  {}
   | new_procedural_type  {}
   ;
 
+/* ACTION REQUIRED */
 new_procedural_type:
     LEX_PROCEDURE optional_procedural_type_formal_parameter_list  {}
   | LEX_FUNCTION optional_procedural_type_formal_parameter_list functiontype  {}
   ;
 
+/* ACTION REQUIRED */
 optional_procedural_type_formal_parameter_list:
     /* empty */  {}
   | '(' procedural_type_formal_parameter_list ')'  {}
   ;
 
+/* ACTION REQUIRED */
 procedural_type_formal_parameter_list:
     procedural_type_formal_parameter  {}
   | procedural_type_formal_parameter_list semi procedural_type_formal_parameter  {}
   ;
 
+/* ACTION REQUIRED */
 procedural_type_formal_parameter:
     id_list  {}
   | id_list ':' typename  {}
@@ -428,11 +451,13 @@ procedural_type_formal_parameter:
   | LEX_VAR id_list  {}
   ;
 
+/* ACTION REQUIRED */
 new_structured_type:
     LEX_PACKED unpacked_structured_type  {}
   | unpacked_structured_type  {}
   ;
 
+/* ACTION REQUIRED */
 unpacked_structured_type:
     array_type  {}
   | file_type  {}
@@ -442,16 +467,18 @@ unpacked_structured_type:
 
 /* Array */
 
+/* ACTION REQUIRED */
 array_type:
     LEX_ARRAY '[' array_index_list ']' LEX_OF type_denoter  {}
   ;
 
+/* ACTION REQUIRED */
 array_index_list:
     ordinal_index_type  {}
   | array_index_list ',' ordinal_index_type  {}
   ;
 
-
+/* ACTION REQUIRED */
 ordinal_index_type:
     new_ordinal_type  {}
   | typename  {}
@@ -542,6 +569,7 @@ variable_declaration_list:
   | variable_declaration_list variable_declaration  {}
   ;
 
+/* ACTION REQUIRED */
 variable_declaration:
     id_list ':' type_denoter semi  {}
   ;
@@ -566,6 +594,7 @@ directive:
   | LEX_EXTERNAL  {}
   ;
 
+/* ACTION REQUIRED */
 functiontype:
     /* empty */  {}
   | ':' typename  {}
